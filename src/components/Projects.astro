@@ -1,0 +1,42 @@
+---
+import Section from './ui/Section.astro'
+
+import { projects } from '@cv'
+---
+
+<Section title="Projects">
+  <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    {
+      projects.map(({ url, description, highlights, name, isActive }) => {
+        return (
+          <li>
+            <article class="rounded-lg border gap-4 flex flex-col p-4 h-full">
+              <header class="flex-1">
+                <h3 class="mb-1">
+                  <a
+                    href={url}
+                    title={`What project ${name}`}
+                    class="text-black font-semibold hover:underline"
+                  >
+                    {name}
+                    {isActive && <span class="text-emerald-500">&bull;</span>}
+                  </a>
+                </h3>
+                <p class="text-[.8rem] leading-[1.2rem] mb-1">{description}</p>
+              </header>
+              <footer class="flex flex-wrap gap-1 text-sm">
+                {highlights.map(highlights => {
+                  return (
+                    <span class="rounded-md bg-gray-200 text-black text-[.6rem] font-medium py-[.1rem] px-[.4rem]">
+                      {highlights}
+                    </span>
+                  )
+                })}
+              </footer>
+            </article>
+          </li>
+        )
+      })
+    }
+  </ul>
+</Section>

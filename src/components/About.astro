@@ -1,0 +1,11 @@
+---
+import Section from './ui/Section.astro'
+
+import { basics } from '@cv'
+
+const { summary } = basics
+---
+
+<Section title="About">
+  <p class="text-gray-500 text-sm text-pretty leading-6 m-0">{summary}</p>
+</Section>

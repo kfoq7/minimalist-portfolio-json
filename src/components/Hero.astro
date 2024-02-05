@@ -1,0 +1,92 @@
+---
+import { basics } from '@cv'
+import Section from '@/components/ui/Section.astro'
+import Mail from '@/icons/Mail.astro'
+import Phone from '@/icons/Phone.astro'
+import LinkedIn from '@/icons/LinkedIn.astro'
+import GitHub from '@/icons/Github.astro'
+import X from '@/icons/X.astro'
+import WorldMap from '@/icons/WorldMap.astro'
+
+const { name, label, image, location, profiles, phone, email } = basics
+const { city, region } = location
+
+const SOCIAL_ICONS: Record<string, any> = {
+  GitHub,
+  LinkedIn,
+  X
+}
+---
+
+<Section>
+  <div class="flex items-center justify-between gap-4">
+    <div class="flex flex-col gap-2 pr-8">
+      <h1 class="text-4xl">{name}</h1>
+      <h2 class="text-gray-700 font-medium">{label}</h2>
+      <span
+        class="text-gray-500 flex items-center gap-1 text-sm tracking-tighter"
+      >
+        <WorldMap />
+        {city}, {region}
+      </span>
+
+      <footer class="hidden print:block print:text-sm print:text-gray-700">
+        {email} &bull; {phone}
+      </footer>
+
+      <footer class="flex gap-1 mt-2 print:hidden">
+        {
+          email && (
+            <a
+              href={`mailto:${email}`}
+              title={`Send mail to ${name} at ${email} email`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-800 inline-flex items-center justify-center border border-gray-300 p-1 size-8 rounded-md transition-all delay-300 ease-in-out hover:bg-gray-100"
+            >
+              <Mail />
+            </a>
+          )
+        }
+        {
+          phone && (
+            <a
+              href={`mailto:${phone}`}
+              title={`Call to ${name} at ${phone} number`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-800 inline-flex items-center justify-center border border-gray-300 p-1 size-8 rounded-md transition-all delay-300 ease-in-out hover:bg-gray-100"
+            >
+              <Phone />
+            </a>
+          )
+        }
+        {
+          profiles.map(({ network, url, username }) => {
+            const Icon = SOCIAL_ICONS[network]
+
+            return (
+              <a
+                href={url}
+                title={`Check profile of ${name} on ${network}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-800 inline-flex items-center justify-center border border-gray-300 p-1 size-8 rounded-md transition-all delay-300 ease-in-out hover:bg-gray-100"
+              >
+                <Icon />
+              </a>
+            )
+          })
+        }
+      </footer>
+    </div>
+
+    <figure>
+      <img
+        src={image}
+        alt={name}
+        class="w-44 aspect-square object-cover rounded-md"
+      />
+    </figure>
+  </div>
+</Section>
